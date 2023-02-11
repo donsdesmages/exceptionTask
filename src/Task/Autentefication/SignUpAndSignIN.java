@@ -7,7 +7,6 @@ import Task.Interface.UserService;
 import Task.Main;
 import Task.User;
 import Task.Validation.Validation;
-
 import java.util.Scanner;
 
 public class SignUpAndSignIN implements UserService {
@@ -52,7 +51,8 @@ public class SignUpAndSignIN implements UserService {
             String password = scanner.nextLine();
 
             for (User user : Main.stringList) {
-                if (user.getEmail().equalsIgnoreCase(emailTwo) && user.getPassword().equalsIgnoreCase(password)) {
+                if (user.getEmail().equalsIgnoreCase(emailTwo)
+                    && user.getPassword().equalsIgnoreCase(password)) {
 
                     return;
                 }

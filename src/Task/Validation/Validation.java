@@ -6,11 +6,13 @@ public class Validation {
 
     public static boolean dataUserValidFunction1(String email) throws BadEmailException {
 
-        if (!(email.isEmpty()))
+        if (!(email.isEmpty())) {
             if (email.contains("@")) {
                 return true;
             }
             throw new BadEmailException("Был введен не верный ( email ) ");
+        }
+        return false;
     }
 
     public static boolean dataUserValidFunction2(String password) throws BadPasswordException {

@@ -1,12 +1,14 @@
 package Task;
-import Task.Autentefication.SignUpAndSignIN;
-import Task.Exceptions.UserNotFoundException;
+import Task.model.User;
+import Task.service.UserService;
+import Task.service.impl.UserServiceImpl;
+import Task.util.OutputUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main  {
-
     /**
      * 1.Показать меню
      * 2.Добавить команду signUp ( пользователь вводит данные )
@@ -15,37 +17,30 @@ public class Main  {
      * 5.Сохранять данные в коллекцию ArrayList
      *
      */
+    private static Scanner scanner = new Scanner(System.in);
 
-    static Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
+        List<User> userList = new ArrayList<>();
 
-    public static List<User> stringList = new ArrayList<>();
-
-    public static void main(String[] args) throws UserNotFoundException {
-
-        pleaseEnterYouData();
-
+        pleaseEnterYouData(userList);
     }
-    static void pleaseEnterYouData () throws UserNotFoundException {
-
-        Constant.headCommands();
+    static void pleaseEnterYouData (List<User> userList) {
+        UserService userService = new UserServiceImpl();
+        OutputUtil.printHeadCommandsMenu();
 
         while (true) {
-
             int enterCommand = scanner.nextInt();
 
             switch (enterCommand) {
-                case 1 :
-                    SignUpAndSignIN signUpAndSignIN = new SignUpAndSignIN();
-                    signUpAndSignIN.signUp();
-                    Constant.headCommands();
-                    break;
-                case 2 :
-                    SignUpAndSignIN signUpAndSignIN1 = new SignUpAndSignIN();
-                    signUpAndSignIN1.signIn();
-                    System.out.println("Вы вошли. Добро пожаловать");
-                    break;
-                default:
-                    System.out.println("Повторите");
+                case 1 -> {
+                    userService.signUp(userList, scanner);
+                    OutputUtil.printHeadCommandsMenu();
+                }
+                case 2 -> {
+                    userService.signIn(userList, scanner);
+                    OutputUtil.printHeadCommandsMenu();
+                }
+                default -> System.out.println("Повторите");
             }
         }
     }
